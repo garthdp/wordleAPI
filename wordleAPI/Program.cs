@@ -34,20 +34,53 @@ namespace wordleAPI
                 , "River", "Smile", "Tiger", "Umbra", "Vital", "Water"
                 , "Youth", "Zebra", "Alarm", "Brave", "Cloud", "Dream", "Fruit", "Green"
             };
-
+            string genWord = "";
             app.MapGet("/GenerateWord", (HttpContext httpContext) =>
             {
                 Random rnd = new Random();
                 int num = rnd.Next(0, summaries.Length);
-                return summaries[num];
+                genWord = summaries[num];
+                return genWord;
             })
             .WithName("GetGenerateWord")
             .WithOpenApi();
 
-            app.MapPost("/CheckWord", word =>
+            app.MapPost("/CheckWord", (string word) =>
             {
-                
-                return "";
+                Word checkWord = new Word();
+                string result = "";
+                if(word != genWord)
+                {
+                    for (int i = 0; i < word.Length; i++)
+                    {
+                        for (int j = 0; i < genWord.Length; j++)
+                        {
+                            if (word[i] == genWord[j] && i == j)
+                            {
+                                checkWord.correctPositions.Add(i);
+                            }
+                            else if (word[i] == genWord[j])
+                            {
+                                checkWord.correctLetters.Add(word[i]);
+                            }
+                        }
+                    }
+                    result = "Correct position = ";
+                    for (int i = 0; i <checkWord.correctPositions.Count; i++)
+                    {
+                        result += checkWord.correctPositions[i] + ", ";
+                    }
+                    result += "\nCorrect letters = ";
+                    for (int i = 0; i < checkWord.correctLetters.Count; i++)
+                    {
+                        result += checkWord.correctLetters[i] + ", ";
+                    }
+                }
+                else
+                {
+                    result = "Correct";
+                }
+                return result;
             })
             .WithName("PostCheckWord")
             .WithOpenApi();
