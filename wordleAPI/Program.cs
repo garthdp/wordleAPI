@@ -41,7 +41,7 @@ namespace wordleAPI
                 int num = rnd.Next(0, summaries.Length);
                 return summaries[num];
             })
-            .WithName("GenerateWord")
+            .WithName("GetGenerateWord")
             .WithOpenApi();
 
             app.MapPost("/CheckWord", word =>
@@ -49,7 +49,7 @@ namespace wordleAPI
                 
                 return "";
             })
-            .WithName("CheckWord")
+            .WithName("PostCheckWord")
             .WithOpenApi();
 
             app.Run();
