@@ -44,6 +44,15 @@ namespace wordleAPI
             .WithName("MakeWord")
             .WithOpenApi();
 
+            app.MapPost("/checkWord", word =>
+            {
+                Random rnd = new Random();
+                int num = rnd.Next(0, summaries.Length);
+                return summaries[num];
+            })
+            .WithName("CheckWord")
+            .WithOpenApi();
+
             app.Run();
         }
     }
