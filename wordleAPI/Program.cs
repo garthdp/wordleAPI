@@ -53,7 +53,7 @@ namespace wordleAPI
                 {
                     for (int i = 0; i < word.Length; i++)
                     {
-                        for (int j = 0; i < genWord.Length; j++)
+                        for (int j = 0; j < genWord.Length; j++)
                         {
                             if (word[i] == genWord[j] && i == j)
                             {
@@ -66,7 +66,7 @@ namespace wordleAPI
                         }
                     }
                     result = "Correct position = ";
-                    for (int i = 0; i <checkWord.correctPositions.Count; i++)
+                    for (int i = 0; i < checkWord.correctPositions.Count; i++)
                     {
                         result += checkWord.correctPositions[i] + ", ";
                     }
