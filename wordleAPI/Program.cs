@@ -29,7 +29,10 @@ namespace wordleAPI
 
             var summaries = new[]
             {
-                "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+                "Apple", "Mango", "Beach", "Chair", "Dance", "Earth", "Fairy", "Ghost", "Happy", "Igloo"
+                , "Jeans", "Lemon", "Music", "Ocean", "Peach", "Queen"
+                , "River", "Smile", "Tiger", "Umbra", "Vital", "Water"
+                , "Youth", "Zebra", "Alarm", "Brave", "Cloud", "Dream", "Fruit", "Green"
             };
 
             app.MapGet("/weatherforecast", (HttpContext httpContext) =>
