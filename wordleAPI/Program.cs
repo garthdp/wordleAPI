@@ -35,7 +35,7 @@ namespace wordleAPI
                 , "Youth", "Zebra", "Alarm", "Brave", "Cloud", "Dream", "Fruit", "Green"
             };
 
-            app.MapGet("/weatherforecast", (HttpContext httpContext) =>
+            app.MapGet("/makeWord", (HttpContext httpContext) =>
             {
                 var forecast = Enumerable.Range(1, 5).Select(index =>
                     new WeatherForecast
