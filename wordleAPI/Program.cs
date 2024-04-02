@@ -37,17 +37,11 @@ namespace wordleAPI
 
             app.MapGet("/makeWord", (HttpContext httpContext) =>
             {
-                var forecast = Enumerable.Range(1, 5).Select(index =>
-                    new WeatherForecast
-                    {
-                        Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                        TemperatureC = Random.Shared.Next(-20, 55),
-                        Summary = summaries[Random.Shared.Next(summaries.Length)]
-                    })
-                    .ToArray();
-                return forecast;
+                Random rnd = new Random();
+                int num = rnd.Next(0, summaries.Length);
+                return summaries[num];
             })
-            .WithName("GetWeatherForecast")
+            .WithName("MakeWord")
             .WithOpenApi();
 
             app.Run();
