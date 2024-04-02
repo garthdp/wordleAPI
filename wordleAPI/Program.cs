@@ -35,20 +35,19 @@ namespace wordleAPI
                 , "Youth", "Zebra", "Alarm", "Brave", "Cloud", "Dream", "Fruit", "Green"
             };
 
-            app.MapGet("/makeWord", (HttpContext httpContext) =>
+            app.MapGet("/GenerateWord", (HttpContext httpContext) =>
             {
                 Random rnd = new Random();
                 int num = rnd.Next(0, summaries.Length);
                 return summaries[num];
             })
-            .WithName("MakeWord")
+            .WithName("GenerateWord")
             .WithOpenApi();
 
-            app.MapPost("/checkWord", word =>
+            app.MapPost("/CheckWord", word =>
             {
-                Random rnd = new Random();
-                int num = rnd.Next(0, summaries.Length);
-                return summaries[num];
+                
+                return "";
             })
             .WithName("CheckWord")
             .WithOpenApi();
