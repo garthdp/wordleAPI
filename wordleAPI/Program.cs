@@ -47,33 +47,38 @@ namespace wordleAPI
 
             app.MapPost("/CheckWord", (string word) =>
             {
-                Word checkWord = new Word();
+                List<char> correctLetters = new List<char>();
+                List<char> correctPosition = new List<char>();
                 string result = "";
                 if(word != genWord)
                 {
                     for (int i = 0; i < word.Length; i++)
                     {
-                        for (int j = 0; j < genWord.Length; j++)
+                        if (word[i] == genWord[i])
                         {
-                            if (word[i] == genWord[j] && i == j)
-                            {
-                                checkWord.correctPositions.Add(i);
-                            }
-                            else if (word[i] == genWord[j])
-                            {
-                                checkWord.correctLetters.Add(word[i]);
-                            }
+                            correctPosition.Add(word[i]);
+                        }
+                        else if (genWord.Contains(word[i]))
+                        {
+                            correctLetters.Add(word[i]);
                         }
                     }
-                    result = "Correct position = ";
-                    for (int i = 0; i < checkWord.correctPositions.Count; i++)
+                    if(correctPosition.Count != 0 && correctLetters.Count != 0)
                     {
-                        result += checkWord.correctPositions[i] + ", ";
+                        result = "Correct position = ";
+                        for (int i = 0; i < correctPosition.Count; i++)
+                        {
+                            result += correctPosition[i] + ", ";
+                        }
+                        result += "\nCorrect letters = ";
+                        for (int i = 0; i < correctLetters.Count; i++)
+                        {
+                            result += correctLetters[i] + ", ";
+                        }
                     }
-                    result += "\nCorrect letters = ";
-                    for (int i = 0; i < checkWord.correctLetters.Count; i++)
+                    else
                     {
-                        result += checkWord.correctLetters[i] + ", ";
+                        result = "Nothing correct";
                     }
                 }
                 else
