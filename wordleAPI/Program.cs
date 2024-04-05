@@ -16,12 +16,8 @@ namespace wordleAPI
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 
@@ -52,42 +48,49 @@ namespace wordleAPI
                 string word = words.ToLower();
                 string gWord = genWord.ToLower();
                 string result = "";
-                if(word != gWord)
+                if(word.Length < 5 || word.Length > 5)
                 {
-                    for (int i = 0; i < word.Length; i++)
+                    result = "Error";
+                }
+                else
+                {
+                    if (word != gWord)
                     {
-                        if (word[i] == gWord[i])
+                        for (int i = 0; i < word.Length; i++)
                         {
-                            correctPosition.Add(word[i]);
-                            word.Remove(i);
+                            if (word[i] == gWord[i])
+                            {
+                                correctPosition.Add(word[i]);
+                                word.Remove(i);
+                            }
+                            else if (gWord.Contains(word[i]))
+                            {
+                                correctLetters.Add(word[i]);
+                            }
                         }
-                        else if (gWord.Contains(word[i]))
+                        if (correctPosition.Count != 0 || correctLetters.Count != 0)
                         {
-                            correctLetters.Add(word[i]);
+                            result = "Green letters=";
+                            for (int i = 0; i < correctPosition.Count; i++)
+                            {
+                                result += correctPosition[i] + ",";
+                            }
+                            result += ";";
+                            result += "\nYellow letters=";
+                            for (int i = 0; i < correctLetters.Count; i++)
+                            {
+                                result += correctLetters[i] + ",";
+                            }
                         }
-                    }
-                    if(correctPosition.Count != 0 || correctLetters.Count != 0)
-                    {
-                        result = "Green letters=";
-                        for (int i = 0; i < correctPosition.Count; i++)
+                        else
                         {
-                            result += correctPosition[i] + ",";
-                        }
-                        result += ";";
-                        result += "\nYellow letters=";
-                        for (int i = 0; i < correctLetters.Count; i++)
-                        {
-                            result += correctLetters[i] + ",";
+                            result = "Nothing correct";
                         }
                     }
                     else
                     {
-                        result = "Nothing correct";
+                        result = "Correct";
                     }
-                }
-                else
-                {
-                    result = "Correct";
                 }
                 return result;
             })
