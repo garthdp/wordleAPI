@@ -45,35 +45,39 @@ namespace wordleAPI
             .WithName("GetGenerateWord")
             .WithOpenApi();
 
-            app.MapPost("/CheckWord", (string word) =>
+            app.MapPost("/CheckWord", (string words) =>
             {
                 List<char> correctLetters = new List<char>();
                 List<char> correctPosition = new List<char>();
+                string word = words.ToLower();
+                string gWord = genWord.ToLower();
                 string result = "";
-                if(word != genWord)
+                if(word != gWord)
                 {
                     for (int i = 0; i < word.Length; i++)
                     {
-                        if (word[i] == genWord[i])
+                        if (word[i] == gWord[i])
                         {
                             correctPosition.Add(word[i]);
+                            word.Remove(i);
                         }
-                        else if (genWord.Contains(word[i]))
+                        else if (gWord.Contains(word[i]))
                         {
                             correctLetters.Add(word[i]);
                         }
                     }
-                    if(correctPosition.Count != 0 && correctLetters.Count != 0)
+                    if(correctPosition.Count != 0 || correctLetters.Count != 0)
                     {
-                        result = "Correct position = ";
+                        result = "Green letters=";
                         for (int i = 0; i < correctPosition.Count; i++)
                         {
-                            result += correctPosition[i] + ", ";
+                            result += correctPosition[i] + ",";
                         }
-                        result += "\nCorrect letters = ";
+                        result += ";";
+                        result += "\nYellow letters=";
                         for (int i = 0; i < correctLetters.Count; i++)
                         {
-                            result += correctLetters[i] + ", ";
+                            result += correctLetters[i] + ",";
                         }
                     }
                     else
