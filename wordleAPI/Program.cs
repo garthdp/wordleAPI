@@ -27,7 +27,7 @@ namespace wordleAPI
 
             app.UseAuthorization();
 
-            var summaries = new[]
+            var randomWords = new[]
             {
                 "Apple", "Mango", "Beach", "Chair", "Dance", "Earth", "Fairy", "Ghost", "Happy", "Igloo"
                 , "Jeans", "Lemon", "Music", "Ocean", "Peach", "Queen"
@@ -38,8 +38,8 @@ namespace wordleAPI
             app.MapGet("/GenerateWord", (HttpContext httpContext) =>
             {
                 Random rnd = new Random();
-                int num = rnd.Next(0, summaries.Length);
-                genWord = summaries[num];
+                int num = rnd.Next(0, randomWords.Length);
+                genWord = randomWords[num];
                 return genWord;
             })
             .WithName("GetGenerateWord")
